@@ -1,0 +1,24 @@
+require('dotenv').config();
+const express = require('express');
+const session = require('express-session');
+const authRoutes = require('./routes/auth');
+
+const app = express();
+
+app.use(express.json()); // lets req.body contain the JSON the frontend sends
+
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false,
+    cookie: { httpOnly: true, sameSite: 'lax' }
+  })
+);
+
+app.use('/api/auth', authRoutes);
+
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`API running on http://localhost:${PORT}`);
+});
