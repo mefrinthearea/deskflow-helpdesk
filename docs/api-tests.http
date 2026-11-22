@@ -199,4 +199,13 @@ Content-Type: application/json
 DELETE http://localhost:3000/api/comments/2
 
 ### 31. Delete a comment that does not exist (expect 404)
-DELETE http://localhost:3000/api/comments/999
+DELETE http://localhost:3000/api/comments/999 
+
+### 32. Unknown route (expect 404 with a JSON error)
+GET http://localhost:3000/api/nothing-here
+
+### 33. Broken JSON body (expect 400 with a JSON error)
+POST http://localhost:3000/api/auth/login
+Content-Type: application/json
+
+{ "email": "customer@test.com", 
