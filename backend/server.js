@@ -3,6 +3,7 @@ const express = require('express');
 const session = require('express-session');
 const authRoutes = require('./routes/auth');
 const ticketRoutes = require('./routes/tickets');
+const commentRoutes = require('./routes/comments');
 
 const app = express();
 
@@ -19,6 +20,7 @@ app.use(
 
 app.use('/api/auth', authRoutes);
 app.use('/api/tickets', ticketRoutes);
+app.use('/api', commentRoutes);
  
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
