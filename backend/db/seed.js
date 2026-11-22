@@ -24,7 +24,7 @@ const insertTicket = db.prepare(
    VALUES (?, ?, ?, ?, ?, ?)`
 );
 insertTicket.run('University email not working', 'I get "invalid password" even after resetting it.', 'Account access', 'high', 'open', 1);
-insertTicket.run('Wi-Fi drops in the library', 'Connection cuts out every 10 minutes on the 2nd floor.', 'Network', 'medium', 'in_progress', 1);
+insertTicket.run('Wi-Fi drops in the library', 'Connection cuts out every 10 minutes on the 2nd floor.', 'Connectivity', 'medium', 'in_progress', 1);
 insertTicket.run('Cannot open Moodle course', 'The course page shows a blank screen.', 'Software', 'low', 'open', 2);
 insertTicket.run('Printer in room 204 is offline', 'Nobody can print since Monday.', 'Hardware', 'medium', 'resolved', 2);
 
