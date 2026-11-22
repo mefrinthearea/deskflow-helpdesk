@@ -1,50 +1,131 @@
 # DeskFlow
 
-**A help desk ticketing system for managing customer support requests.**
+**Help Desk Ticketing System**
 
-DeskFlow is a full-stack web application developed for the Web Programming course at **Ilia State University (Fall 2026)**.
-
-The platform is designed to let customers submit and track support tickets, agents respond to requests, and administrators manage ticket assignments.
+DeskFlow is a web application for creating, organizing, and managing support tickets. It is developed as a team project for the Web Programming course at Ilia State University.
 
 ## Tech Stack
 
-| Frontend | Backend | Database | Design |
-|---|---|---|---|
-| React, Vite, CSS3 | Node.js, Express.js | SQL (TBD) | Figma |
+| Layer | Technology |
+| --- | --- |
+| Frontend | React, Vite, React Router |
+| UI | CSS, Lucide icons |
+| Backend | Node.js, Express |
+| Database | Relational SQL database |
+| Design | Figma |
+| Version control | Git and GitHub |
 
-## Core Functionality
+## Features
 
-- **Authentication:** User registration, login, logout and role-based access.
-- **Ticket management:** Create, view, update and delete support tickets.
-- **Comments:** Customer-agent communication within tickets.
-- **Ticket assignment:** Administrators assign tickets to support agents.
-- **Status tracking:** Open → In Progress → Resolved → Closed.
-- **Categories and priorities:** Organize support requests.
+### Frontend implemented
 
-## Project Structure
+- Ticket dashboard with search, sorting, and filters
+- Create, view, edit, and delete tickets
+- Ticket priorities: Low, Medium, High, Urgent
+- Ticket status management
+- Ticket conversations and replies
+- My Requests and Activity views
+- Light and dark themes
+- Form validation and confirmation dialogs
+- Demo data persisted in browser localStorage
+
+### Integration pending
+
+- Connect ticket and comment operations to the Express API
+- Persist application data in the SQL database
+- Integrate registration, login, and logout
+- Integrate server-enforced user permissions
+
+> The frontend currently uses localStorage for demonstration.
+> It is not yet connected to the team's SQL backend.
+
+## Repository Structure
 
 ```text
 deskflow-helpdesk/
-├── frontend/       # React application
-├── backend/        # Express REST API
-├── database/       # SQL schema and seed data
-├── docs/           # Design and documentation
+├── frontend/     # React application
+├── backend/      # Express API
+├── database/     # SQL schema and seed data
+├── docs/         # Project documentation
 └── README.md
 ```
 
-## Development Status
+## Getting Started
 
-**In development — Interim MVP deadline: November 24, 2026.**
+### Requirements
 
-Features described above represent the planned application. Implementation and integration are ongoing.
+- Node.js and npm
+- Git
 
-## Contributors
+### Run the frontend
 
-| Contributor | Responsibility |
-|---|---|
-| [Giorgi Meparishvili](https://github.com/mefrinthearea) | Frontend development, UI/UX |
-| Ekaterine Kapanadze | Backend development, database |
+```bash
+git clone https://github.com/mefrinthearea/deskflow-helpdesk.git
+cd deskflow-helpdesk
+git switch feature/frontend
 
----
+cd frontend
+npm install
+npm run dev
+```
 
-**Ilia State University · Web Programming · Fall 2026**
+Open the local URL printed by Vite.
+
+### Build for production
+
+```bash
+cd frontend
+npm run build
+```
+
+The production files are generated in `frontend/dist/`.
+
+### Backend setup
+
+The backend setup instructions will be finalized after the team confirms its integrated API, environment variables, and database configuration.
+
+## Frontend Architecture
+
+- `components/` — Reusable interface components
+- `pages/` — Application screens
+- `data/` — Sample ticket data
+- `services/` — Ticket storage operations
+- `utils/` — Shared helper functions
+- `styles/` — Application styling
+- `context.jsx` — Shared application state
+- `App.jsx` — Application routes
+- `main.jsx` — React entry point
+
+## Development Workflow
+
+Feature development takes place on separate Git branches. Changes are reviewed and integrated into `main` when ready.
+
+Commit messages use descriptive prefixes such as:
+
+- `feat:` New functionality
+- `fix:` Bug fixes
+- `refactor:` Internal code improvements
+- `docs:` Documentation changes
+- `test:` Test additions or updates
+
+## Project Requirements
+
+The completed university MVP must demonstrate:
+
+- React frontend and Express REST API
+- SQL database with keys and relationships
+- CRUD operations on at least two main entities
+- User registration, login, and logout
+- Secure password hashing
+- At least two roles enforced by the backend
+- Original Figma design
+- Contributions from all three team members
+- A working live demonstration
+
+## Project Status
+
+The React frontend is implemented and builds successfully. Backend integration, authentication integration, and end-to-end verification remain to be completed.
+
+## Academic Project
+
+Developed for the Web Programming course at Ilia State University, 2026.
