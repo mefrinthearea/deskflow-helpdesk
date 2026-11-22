@@ -13,7 +13,7 @@ export default function Activity() {
       <PageHeading
         eyebrow="SUPPORT / ACTIVITY"
         title="Activity"
-        description="Recent ticket updates in this frontend preview."
+        description="Your most recently created support tickets."
       />
       <section className="activity-panel glass-panel">
         <div className="section-label">RECENT UPDATES</div>

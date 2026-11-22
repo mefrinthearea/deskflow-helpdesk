@@ -1,15 +1,15 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import PageHeading from '../components/PageHeading';
 import { useDeskFlow } from '../context';
-import { categories, priorities, statuses } from '../data/mockTickets';
+import { categories, priorities } from '../data/options';
 
 function validateTicket({ subject, description }) {
   const errors = {};
   if (!subject.trim()) {
     errors.subject = 'Subject is required.';
-  } else if (subject.trim().length > 160) {
-    errors.subject = 'Keep the subject under 160 characters.';
+  } else if (subject.trim().length > 100) {
+    errors.subject = 'Keep the subject under 100 characters.';
   }
   if (!description.trim()) {
     errors.description = 'Please describe the issue.';
@@ -21,17 +21,40 @@ export default function TicketForm() {
   const { id } = useParams();
   const editing = Boolean(id);
   const navigate = useNavigate();
-  const { tickets, createTicket, updateTicket } = useDeskFlow();
+  const { tickets, user, loadTicketDetail, createTicket, updateTicket } = useDeskFlow();
   const ticket = tickets.find((item) => item.id === id);
 
   const [subject, setSubject] = useState(ticket?.subject || '');
   const [category, setCategory] = useState(ticket?.category || 'Account access');
   const [priority, setPriority] = useState(ticket?.priority || 'Medium');
   const [description, setDescription] = useState(ticket?.description || '');
-  const [status, setStatus] = useState(ticket?.status || 'Open');
+  const [busy, setBusy] = useState(false);
+  const [loading, setLoading] = useState(editing);
+  const [serverError, setServerError] = useState('');
+
+  useEffect(() => {
+    if (!editing) return;
+    let active = true;
+    loadTicketDetail(id).catch((err) => { if (active) setServerError(err.message); })
+      .finally(() => { if (active) setLoading(false); });
+    return () => { active = false; };
+  }, [editing, id, loadTicketDetail]);
+
+  useEffect(() => {
+    if (!ticket || !editing) return;
+    setSubject(ticket.subject);
+    setCategory(ticket.category);
+    setPriority(ticket.priority);
+    setDescription(ticket.description);
+  }, [ticket?.id, editing, loading]);
   const [errors, setErrors] = useState({});
 
-  if (editing && !ticket) {
+  if (user?.role !== 'customer') {
+    return <div className="missing"><h1>Customer access only</h1><Link to="/" className="primary-button">Back to tickets</Link></div>;
+  }
+
+  if (editing && loading && !ticket) return <div className="missing">Loading ticket…</div>;
+  if (editing && (!ticket || ticket.ownerId !== user.id || ticket.status !== 'Open')) {
     return (
       <div className="missing">
         <h1>Ticket not found</h1>
@@ -40,7 +63,7 @@ export default function TicketForm() {
     );
   }
 
-  function submit(event) {
+  async function submit(event) {
     event.preventDefault();
     const nextErrors = validateTicket({ subject, description });
     setErrors(nextErrors);
@@ -53,13 +76,18 @@ export default function TicketForm() {
       description: description.trim(),
     };
 
-    if (editing) {
-      updateTicket(id, { ...input, status });
-      navigate(`/tickets/${id}`);
-    } else {
-      const newId = createTicket(input);
-      navigate(`/tickets/${newId}`);
-    }
+    setBusy(true);
+    setServerError('');
+    try {
+      if (editing) {
+        await updateTicket(id, input);
+        navigate(`/tickets/${id}`);
+      } else {
+        const newId = await createTicket(input);
+        navigate(`/tickets/${newId}`);
+      }
+    } catch (error) { setServerError(error.message); }
+    finally { setBusy(false); }
   }
 
   return (
@@ -80,13 +108,14 @@ export default function TicketForm() {
       <div className="form-layout">
         <section className="request-panel glass-panel">
           <form onSubmit={submit} noValidate>
+            {serverError && <p role="alert" className="auth-error">{serverError}</p>}
             <div className="section-label">REQUEST DETAILS</div>
 
             <label className="field">
               <span>SUBJECT</span>
               <input
                 value={subject}
-                maxLength={161}
+                maxLength={100}
                 onChange={(event) => setSubject(event.target.value)}
                 placeholder="Briefly describe your issue"
                 aria-invalid={Boolean(errors.subject)}
@@ -109,14 +138,6 @@ export default function TicketForm() {
               </label>
             </div>
 
-            {editing && (
-              <label className="field status-field">
-                <span>STATUS</span>
-                <select value={status} onChange={(event) => setStatus(event.target.value)}>
-                  {statuses.map((item) => <option key={item}>{item}</option>)}
-                </select>
-              </label>
-            )}
 
             <label className="field description-field">
               <span>DESCRIPTION</span>
@@ -132,7 +153,7 @@ export default function TicketForm() {
 
             <div className="form-actions">
               <Link to={editing ? `/tickets/${id}` : '/'} className="secondary-button">Cancel</Link>
-              <button type="submit" className="primary-button">
+              <button type="submit" className="primary-button" disabled={busy}>
                 {editing ? 'Save changes' : 'Create ticket'}
               </button>
             </div>
@@ -152,7 +173,7 @@ export default function TicketForm() {
             <strong>03</strong><span>Set a priority that reflects the urgency.</span>
           </div>
           <p className="guide-note">
-            Your changes are stored in this browser until the backend is connected.
+            Your requests are securely saved to the DeskFlow database.
           </p>
         </aside>
       </div>

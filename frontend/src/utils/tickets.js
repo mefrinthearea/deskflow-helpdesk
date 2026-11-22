@@ -18,10 +18,10 @@ export function formatDate(timestamp) {
 }
 
 /** Always work on a copy: sorting should not mutate shared React state. */
-export function filterAndSortTickets(tickets, { mine, query, status, priority, sort }) {
+export function filterAndSortTickets(tickets, { mine, userId, query, status, priority, sort }) {
   const term = query.trim().toLowerCase();
   const filtered = tickets.filter((ticket) => {
-    if (mine && ticket.customer !== 'Demo Customer') return false;
+    if (mine && ticket.ownerId !== userId) return false;
     if (status && ticket.status !== status) return false;
     if (priority && ticket.priority !== priority) return false;
     if (!term) return true;

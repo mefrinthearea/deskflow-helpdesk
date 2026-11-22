@@ -1,14 +1,12 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import PageHeading from '../components/PageHeading';
-import { useDeskFlow } from '../context';
 
 /** Design reference for the main empty, validation, delete, and loading states. */
 export default function UIStates() {
   const [value, setValue] = useState('');
   const [error, setError] = useState(false);
   const [confirm, setConfirm] = useState(false);
-  const { reset } = useDeskFlow();
 
   function validateExample(event) {
     event.preventDefault();
@@ -74,9 +72,6 @@ export default function UIStates() {
           <div className="skeleton" />
           <div className="skeleton shorter" />
           <div className="skeleton shortest" />
-          <button type="button" className="reset-demo" onClick={reset}>
-            Restore demo ticket data
-          </button>
         </section>
       </div>
     </>

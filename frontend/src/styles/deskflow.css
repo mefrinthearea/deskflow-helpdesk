@@ -1727,3 +1727,19 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
     margin-inline: 16px;
   }
 }
+
+/* API integration: authentication and role-aware actions. */
+.auth-content { display:flex; align-items:center; justify-content:center; min-height:580px; }
+.auth-panel { width:min(100%,460px); padding:36px; }
+.auth-panel h1 { margin:14px 0 8px; font-size:30px; }
+.auth-panel p { line-height:1.55; }
+.auth-form { display:grid; gap:17px; margin-top:25px; }
+.auth-form .primary-button { justify-content:center; width:100%; }
+.auth-switch { display:block; margin:18px auto; background:transparent; border:0; color:var(--accent); font-weight:600; }
+.auth-demo { color:var(--muted); font-size:12px; margin:20px 0 0; }
+.auth-error { padding:12px 14px; border:1px solid #d26a7b; border-radius:8px; color:var(--text); background:var(--surface); margin:10px 0; }
+.signout-link { border:1px solid var(--line); border-radius:8px; padding:8px 10px; color:var(--text); background:transparent; font-size:12px; }
+.startup-message { display:grid; place-items:center; min-height:100vh; font:600 18px Inter, sans-serif; }
+.comment-actions { display:flex; gap:12px; margin-top:8px; }
+.comment-actions button { border:0; background:transparent; color:var(--accent); font-size:12px; padding:2px; }
+@media(max-width:680px) { .auth-panel{padding:22px;} .profile-block>span:last-child{display:none;} .signout-link{font-size:11px;} }

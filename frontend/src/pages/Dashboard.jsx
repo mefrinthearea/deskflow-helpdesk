@@ -5,10 +5,10 @@ import { useDeskFlow } from '../context';
 import Badge from '../components/Badge';
 import FilterSelect from '../components/FilterSelect';
 import PageHeading from '../components/PageHeading';
-import { priorities, statuses } from '../data/mockTickets';
+import { priorities, statuses } from '../data/options';
 import { filterAndSortTickets, timeAgo } from '../utils/tickets';
 
-function EmptyResults({ mine, hasFilters, clearFilters }) {
+function EmptyResults({ mine, hasFilters, clearFilters, canCreate }) {
   const noRequests = mine && !hasFilters;
 
   return (
@@ -23,11 +23,11 @@ function EmptyResults({ mine, hasFilters, clearFilters }) {
         <button type="button" className="primary-button" onClick={clearFilters}>
           <RotateCcw size={15} /> Clear filters
         </button>
-      ) : (
+      ) : canCreate ? (
         <Link to="/tickets/new" className="primary-button">
           <Plus size={15} /> Create a ticket
         </Link>
-      )}
+      ) : null}
     </div>
   );
 }
@@ -125,13 +125,13 @@ function TicketPreview({ ticket }) {
 }
 
 export default function Dashboard({ mine = false }) {
-  const { tickets } = useDeskFlow();
+  const { tickets, user, error } = useDeskFlow();
   const [params, setParams] = useSearchParams();
   const [query, setQuery] = useState(params.get('q') || '');
   const [status, setStatus] = useState(params.get('status') || '');
   const [priority, setPriority] = useState(params.get('priority') || '');
   const [sort, setSort] = useState('recent');
-  const [selectedId, setSelectedId] = useState('DF-1042');
+  const [selectedId, setSelectedId] = useState(null);
 
   // Reflect filters in the address bar so filtered views can be refreshed/shared.
   useEffect(() => {
@@ -144,11 +144,12 @@ export default function Dashboard({ mine = false }) {
 
   const visible = useMemo(() => filterAndSortTickets(tickets, {
     mine,
+    userId: user?.id,
     query,
     status,
     priority,
     sort,
-  }), [tickets, mine, query, status, priority, sort]);
+  }), [tickets, mine, user?.id, query, status, priority, sort]);
 
   // The previously selected ticket may be filtered out or deleted.
   const selected = visible.find((ticket) => ticket.id === selectedId) || visible[0];
@@ -163,17 +164,18 @@ export default function Dashboard({ mine = false }) {
 
   return (
     <>
+      {error && <p role="alert" className="auth-error">{error}</p>}
       <PageHeading
         eyebrow={mine ? 'SUPPORT / MY REQUESTS' : 'SUPPORT / WORKSPACE'}
         title={mine ? 'My requests' : 'Ticket workspace'}
         description={mine
-          ? 'Your submitted requests in this frontend preview.'
+          ? 'Your submitted support requests.'
           : 'Review requests, reply to customers and manage assignments.'}
-        action={(
+        action={user?.role === 'customer' ? (
           <Link to="/tickets/new" className="primary-button new-ticket">
             <Plus size={17} /> New ticket
           </Link>
-        )}
+        ) : null}
       />
 
       <div className="toolbar">
@@ -214,7 +216,7 @@ export default function Dashboard({ mine = false }) {
         <div className="ticket-grid-panel">
           <TicketTable tickets={visible} selectedId={selected?.id} selectTicket={setSelectedId} />
           {!visible.length && (
-            <EmptyResults mine={mine} hasFilters={hasFilters} clearFilters={clearFilters} />
+            <EmptyResults mine={mine} hasFilters={hasFilters} clearFilters={clearFilters} canCreate={user?.role === 'customer'} />
           )}
         </div>
         <TicketPreview ticket={selected} />
