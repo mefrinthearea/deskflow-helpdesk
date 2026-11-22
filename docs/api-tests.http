@@ -1,0 +1,55 @@
+### 1. Login as customer
+POST http://localhost:3000/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "customer@test.com",
+  "password": "Test1234!"
+}
+
+### 2. Who am I (should return the customer)
+GET http://localhost:3000/api/auth/me
+
+### 3. Wrong password (expect 401)
+POST http://localhost:3000/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "customer@test.com",
+  "password": "wrong"
+}
+
+### 4. Register with an email that already exists (expect 400)
+POST http://localhost:3000/api/auth/register
+Content-Type: application/json
+
+{
+  "name": "Test",
+  "email": "customer@test.com",
+  "password": "Test1234!"
+}
+
+### 5. Register a new user (expect 201)
+POST http://localhost:3000/api/auth/register
+Content-Type: application/json
+
+{
+  "name": "New User",
+  "email": "new@test.com",
+  "password": "Test1234!"
+}
+
+### 6. Logout (expect 200)
+POST http://localhost:3000/api/auth/logout
+
+### 7. Who am I after logout (expect 401)
+GET http://localhost:3000/api/auth/me
+
+### 8. Login as agent
+POST http://localhost:3000/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "agent@test.com",
+  "password": "Test1234!"
+}
