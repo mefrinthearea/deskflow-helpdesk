@@ -133,3 +133,70 @@ DELETE http://localhost:3000/api/tickets/4
 
 ### 21. Delete a ticket that does not exist (expect 404)
 DELETE http://localhost:3000/api/tickets/999
+
+### 22. Login as customer
+POST http://localhost:3000/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "customer@test.com",
+  "password": "Test1234!"
+}
+
+### 23. Add a comment to own ticket (expect 201)
+POST http://localhost:3000/api/tickets/2/comments
+Content-Type: application/json
+
+{
+  "body": "The problem is still there this morning."
+}
+
+### 24. Comment on another customer's ticket (expect 403)
+POST http://localhost:3000/api/tickets/3/comments
+Content-Type: application/json
+
+{
+  "body": "I should not be able to write this."
+}
+
+### 25. Empty comment (expect 400)
+POST http://localhost:3000/api/tickets/2/comments
+Content-Type: application/json
+
+{
+  "body": ""
+}
+
+### 26. Edit own comment (expect 200)
+PUT http://localhost:3000/api/comments/2
+Content-Type: application/json
+
+{
+  "body": "Thanks, it happened again today at 14:00 and 16:30."
+}
+
+### 27. Edit the agent's comment (expect 403)
+PUT http://localhost:3000/api/comments/1
+Content-Type: application/json
+
+{
+  "body": "Changed by a customer."
+}
+
+### 28. Customer deletes the agent's comment (expect 403)
+DELETE http://localhost:3000/api/comments/1
+
+### 29. Login as agent
+POST http://localhost:3000/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "agent@test.com",
+  "password": "Test1234!"
+}
+
+### 30. Agent deletes a customer comment (expect 200)
+DELETE http://localhost:3000/api/comments/2
+
+### 31. Delete a comment that does not exist (expect 404)
+DELETE http://localhost:3000/api/comments/999
