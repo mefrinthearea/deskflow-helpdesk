@@ -208,4 +208,15 @@ GET http://localhost:3000/api/nothing-here
 POST http://localhost:3000/api/auth/login
 Content-Type: application/json
 
-{ "email": "customer@test.com", 
+{ "email": "customer@test.com", }
+
+### 34. Create a ticket with an old category name (expect 400)
+POST http://localhost:3000/api/tickets
+Content-Type: application/json
+
+{
+  "title": "Wi-Fi not working",
+  "description": "No connection in the dormitory.",
+  "category": "Network",
+  "priority": "low"
+}
