@@ -7,7 +7,7 @@ const router = express.Router();
 // every ticket route needs a logged in user
 router.use(requireLogin);
 
-const CATEGORIES = ['Account access', 'Network', 'Software', 'Hardware', 'Other'];
+const CATEGORIES = ['Account access', 'Connectivity', 'Hardware', 'Software', 'Other'];
 const PRIORITIES = ['low', 'medium', 'high'];
 const STATUSES = ['open', 'in_progress', 'resolved', 'closed'];
 
