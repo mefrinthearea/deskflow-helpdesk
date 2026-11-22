@@ -1,0 +1,135 @@
+### 1. Login as customer
+POST http://localhost:3000/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "customer@test.com",
+  "password": "Test1234!"
+}
+
+### 2. Who am I (should return the customer)
+GET http://localhost:3000/api/auth/me
+
+### 3. Wrong password (expect 401)
+POST http://localhost:3000/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "customer@test.com",
+  "password": "wrong"
+}
+
+### 4. Register with an email that already exists (expect 400)
+POST http://localhost:3000/api/auth/register
+Content-Type: application/json
+
+{
+  "name": "Test",
+  "email": "customer@test.com",
+  "password": "Test1234!"
+}
+
+### 5. Register a new user (expect 201)
+POST http://localhost:3000/api/auth/register
+Content-Type: application/json
+
+{
+  "name": "New User",
+  "email": "new@test.com",
+  "password": "Test1234!"
+}
+
+### 6. Logout (expect 200)
+POST http://localhost:3000/api/auth/logout
+
+### 7. Who am I after logout (expect 401)
+GET http://localhost:3000/api/auth/me
+
+### 8. Login as agent
+POST http://localhost:3000/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "agent@test.com",
+  "password": "Test1234!"
+}
+
+### 9. Login as customer again
+POST http://localhost:3000/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "customer@test.com",
+  "password": "Test1234!"
+}
+
+### 10. Customer lists tickets (expect only the 2 of this customer)
+GET http://localhost:3000/api/tickets
+
+### 11. Customer opens a ticket of another customer (expect 403)
+GET http://localhost:3000/api/tickets/3
+
+### 12. Customer views own ticket with comments (expect 200)
+GET http://localhost:3000/api/tickets/2
+
+### 13. Create a ticket (expect 201)
+POST http://localhost:3000/api/tickets
+Content-Type: application/json
+
+{
+  "title": "Projector not working in room 101",
+  "description": "The lecture hall projector shows no signal.",
+  "category": "Hardware",
+  "priority": "medium"
+}
+
+### 14. Create with invalid data (expect 400)
+POST http://localhost:3000/api/tickets
+Content-Type: application/json
+
+{
+  "title": "",
+  "description": "Missing title",
+  "category": "Hardware",
+  "priority": "urgent"
+}
+
+### 15. Edit own ticket (expect 200)
+PUT http://localhost:3000/api/tickets/1
+Content-Type: application/json
+
+{
+  "title": "University email not working",
+  "description": "Still getting invalid password after the reset.",
+  "category": "Account access",
+  "priority": "high"
+}
+
+### 16. FORBIDDEN ACTION: customer tries to delete (expect 403)
+DELETE http://localhost:3000/api/tickets/1
+
+### 17. Login as agent
+POST http://localhost:3000/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "agent@test.com",
+  "password": "Test1234!"
+}
+
+### 18. Agent lists all tickets (expect every ticket)
+GET http://localhost:3000/api/tickets
+
+### 19. Agent changes status (expect 200)
+PUT http://localhost:3000/api/tickets/1
+Content-Type: application/json
+
+{
+  "status": "in_progress"
+}
+
+### 20. Agent deletes a ticket (expect 200)
+DELETE http://localhost:3000/api/tickets/4
+
+### 21. Delete a ticket that does not exist (expect 404)
+DELETE http://localhost:3000/api/tickets/999
