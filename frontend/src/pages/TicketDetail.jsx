@@ -62,9 +62,12 @@ export default function TicketDetail() {
       <Link className="primary-button" to="/">Back to tickets</Link></div>
   );
 
-  const messages = ticket.comments.length ? ticket.comments : [{
-    id: 'initial', author: ticket.customer, text: ticket.description, createdAt: ticket.createdAt,
-  }];
+  const messages = [{
+    id: 'initial',
+    author: ticket.customer,
+    text: ticket.description,
+    createdAt: ticket.createdAt,
+  }, ...ticket.comments];
 
   return (
     <>

@@ -98,10 +98,9 @@ deskflow-helpdesk/
 ```bash
 git clone https://github.com/mefrinthearea/deskflow-helpdesk.git
 cd deskflow-helpdesk
-git switch feature/frontend
 ```
 
-> The integrated frontend is currently on `feature/frontend`. After the pull request is merged, use `main` instead.
+> The integrated application is available on `main`.
 
 ### 2. Configure and seed the backend
 
