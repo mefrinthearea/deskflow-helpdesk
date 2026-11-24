@@ -89,7 +89,7 @@ deskflow-helpdesk/
 
 ### Requirements
 
-- Node.js and npm (versions compatible with both `package-lock.json` files)
+- Node.js and npm (versions compatible with both `package-lock.json` files ; Node.js 22 (tested with v22.16) and npm)
 - Git
 - Two terminal windows
 
@@ -111,6 +111,7 @@ cp .env.example .env
 ```
 
 Open `backend/.env` and assign a **long, random** `SESSION_SECRET` value. On macOS/Linux, you can generate one with `openssl rand -hex 32`. Do not commit `.env`.
+On Windows (or anywhere with Node): `node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"`
 
 Initialize the database **once for a fresh setup**:
 
@@ -188,11 +189,6 @@ The UI was created as an original Figma design, with a bright aqua/light appeara
 
 **[View the DeskFlow design in Figma](https://www.figma.com/design/xFTeOWPtJSoxYR5h2kPbqi?node-id=2-2)**
 
-> Before submission, confirm the Figma file has view access for the lecturer. Final mobile frames, wireframes, and design documentation should be included in the Figma file when complete.
-
-<!-- Add real app screenshots here after placing them in docs/screenshots/.
-Example: ![DeskFlow ticket dashboard](docs/screenshots/dashboard.png)
--->
 
 ## Live demo checklist
 
@@ -205,16 +201,15 @@ Example: ![DeskFlow ticket dashboard](docs/screenshots/dashboard.png)
 
 ## Team and contributions
 
-DeskFlow is a three-person university team project. The Git history and pull requests document individual contributions.
+Team 07 has two members. The Git history and pull requests document each person's contributions.
 
-- **Frontend, UI design, and React integration:** [`@mefrinthearea`](https://github.com/mefrinthearea)
-- **Express API, SQLite, and authentication:** [`@ekaterine22`](https://github.com/ekaterine22)
-- **Third teammate:** Add their verified name, GitHub account, and contribution before submission.
+- **Ekaterine Kapanadze** ([`@ekaterine22`](https://github.com/ekaterine22)): Express API, SQLite database, authentication and roles, API tests.
+- **Giorgi Meparishvili** ([`@mefrinthearea`](https://github.com/mefrinthearea)): frontend, Figma design, React integration.
+
 
 ## Project status
 
-The integrated app has been built and manually tested for customer/agent login, database-backed ticket display, customer ticket creation and comments, and agent status updates. A complete fresh-clone test and remaining CRUD/registration scenarios should be verified before the final classroom demo.
-
+Verified on a fresh clone of `main`: registration, login and logout, customer ticket creation, editing and comments, agent status changes and deletion, Demonstrate server-enforced permissions: in docs/api-tests.http, log in as a customer and send the DELETE request, which returns 403.
 ---
 
 <div align="center">
