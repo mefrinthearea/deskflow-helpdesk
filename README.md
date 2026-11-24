@@ -130,6 +130,40 @@ The application will show a **Local** URL such as `http://localhost:5173/` (the 
 
 ## Getting started
 
+### Already downloaded? One paste to start and open DeskFlow (macOS/Linux)
+
+Open **Terminal / Bash / zsh**. You can paste this from your home directory; it checks the common project locations as well as the current folder. **Node.js/npm must already be installed**, and the project must have been set up at least once.
+
+```bash
+PROJECT=""
+for DIR in "$PWD" "$HOME/deskflow-presentation" "$HOME/deskflow-helpdesk" "$HOME/Documents/University/Web/deskflow-helpdesk"; do
+  if [ -f "$DIR/backend/server.js" ] && [ -f "$DIR/frontend/package.json" ]; then
+    PROJECT="$DIR"
+    break
+  fi
+done
+
+if [ -z "$PROJECT" ]; then
+  echo "DeskFlow not found in the standard locations. Open Terminal in its downloaded project folder and paste this block again."
+else
+  echo "Starting DeskFlow from: $PROJECT"
+  (cd "$PROJECT/backend" && npm start) &
+  (cd "$PROJECT/frontend" && npm run dev -- --host 127.0.0.1) &
+  sleep 4
+  if command -v open >/dev/null 2>&1; then
+    open http://localhost:5173
+  elif command -v xdg-open >/dev/null 2>&1; then
+    xdg-open http://localhost:5173
+  else
+    echo "Open the Local URL printed by Vite in your browser."
+  fi
+  wait
+fi
+```
+
+**Notes:** This starts backend and frontend **separately**, bypassing the root combined-launcher issue encountered in testing. It does not clone, reinstall, or seed/reset the database. Keep this Terminal window open during the demo. If Vite prints a different port, open that exact URL instead. **If Eka's folder is elsewhere**, open her Terminal in the downloaded DeskFlow folder first, and run the same block; it detects `$PWD`. This block is for macOS/Linux shells, **not Windows PowerShell**. On Windows, follow the first-time instructions or start backend and frontend in separate PowerShell windows.
+
+
 ### Fastest classroom demo — copy and paste once
 
 **Works in macOS Terminal (zsh), Linux Bash, and Windows PowerShell**, provided **Git** and **Node.js 22+ (with npm)** are installed. Internet access is needed to clone the repository and install dependencies.
