@@ -102,16 +102,16 @@ The application will show a **Local** URL such as `http://localhost:5173/` (the 
 
 ### Fastest classroom demo — copy and paste once
 
-**Works in macOS Terminal, Linux Terminal, and Windows PowerShell**, provided **Git** and **Node.js 22+ (with npm)** are installed. Internet access is needed to clone the repository and install dependencies.
+**Works in macOS Terminal (zsh), Linux Bash, and Windows PowerShell**, provided **Git** and **Node.js 22+ (with npm)** are installed. Internet access is needed to clone the repository and install dependencies.
 
-Open a terminal in a folder where you want a **new** copy of DeskFlow. Copy and paste this **entire block in order**:
+Open a terminal in a folder where you want a **new** copy of DeskFlow. Copy and paste this **entire block in order**. Copy the raw URL as shown—**do not paste Markdown links** such as `[https://...](https://...)`, and do not add extra letters before `git clone`:
 
 ```text
 git clone https://github.com/mefrinthearea/deskflow-helpdesk.git deskflow-presentation
 cd deskflow-presentation
 npm --prefix backend ci
 npm --prefix frontend ci
-node -e "const fs=require('fs');const p='backend/.env';if(!fs.existsSync(p))fs.writeFileSync(p,'PORT=3000\nSESSION_SECRET='+require('crypto').randomBytes(32).toString('hex')+'\n')"
+node -e "const fs=require('fs');const p='backend/.env';if(fs.existsSync(p)===false)fs.writeFileSync(p,'PORT=3000\nSESSION_SECRET='+require('crypto').randomBytes(32).toString('hex')+'\n')"
 npm --prefix backend run seed
 npm start
 ```
