@@ -77,7 +77,10 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
   --priority-high:#ffe5da;
   --priority-medium:#e7f0f4;
   --priority-low:#ddf7ef;
+}
 
+.theme-dark {
+  --scene:#171b32;
   --rim:#2f3154;
   --workspace:#20243a;
   --header:#2a304d;
@@ -104,7 +107,10 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
   --priority-high:#6b415e;
   --priority-medium:#315065;
   --priority-low:#365253;
+}
 
+.deskflow-scene {
+  min-height:100vh;
   padding:24px 28px 32px;
   background:var(--scene);
   color:var(--text);
@@ -1731,7 +1737,6 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 .comment-actions { display:flex; gap:12px; margin-top:8px; }
 .comment-actions button { border:0; background:transparent; color:var(--accent); font-size:12px; padding:2px; }
 @media(max-width:680px) { .auth-panel{padding:22px;} .profile-block>span:last-child{display:none;} .signout-link{font-size:11px;} }
-
 
 /* Dropdown contrast: readable options in both themes. */
 .theme-light select {

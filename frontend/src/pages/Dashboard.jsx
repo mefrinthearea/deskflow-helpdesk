@@ -9,7 +9,7 @@ import { priorities, statuses } from '../data/options';
 import { filterAndSortTickets, timeAgo } from '../utils/tickets';
 
 function EmptyResults({ hasFilters, clearFilters, canCreate }) {
-  const noRequests = !hasFilters;
+  const noRequests = !hasFilters && canCreate;
 
   return (
     <div className="no-results">
@@ -123,7 +123,7 @@ function TicketPreview({ ticket }) {
   );
 }
 
-export default function Dashboard() {
+export default function Dashboard({ mine = false }) {
   const { tickets, user, error } = useDeskFlow();
   const [params, setParams] = useSearchParams();
   const [query, setQuery] = useState(params.get('q') || '');
@@ -142,13 +142,13 @@ export default function Dashboard() {
   }, [query, status, priority, setParams]);
 
   const visible = useMemo(() => filterAndSortTickets(tickets, {
-    mine: false,
+    mine,
     userId: user?.id,
     query,
     status,
     priority,
     sort,
-  }), [tickets, user?.id, query, status, priority, sort]);
+  }), [tickets, mine, user?.id, query, status, priority, sort]);
 
   // The previously selected ticket may be filtered out or deleted.
   const selected = visible.find((ticket) => ticket.id === selectedId) || visible[0];
@@ -165,9 +165,9 @@ export default function Dashboard() {
     <>
       {error && <p role="alert" className="auth-error">{error}</p>}
       <PageHeading
-        eyebrow="SUPPORT / WORKSPACE"
-        title="Ticket workspace"
-        description="Review support requests, respond to customers and track ticket status."
+        eyebrow={mine ? 'SUPPORT / MY REQUESTS' : 'SUPPORT / WORKSPACE'}
+        title={mine ? 'My requests' : 'Ticket workspace'}
+        description={mine ? 'Your submitted support requests.' : 'Review support requests, respond to customers and track ticket status.'}
         action={user?.role === 'customer' ? (
           <Link to="/tickets/new" className="primary-button new-ticket">
             <Plus size={17} /> New ticket
