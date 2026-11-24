@@ -85,6 +85,36 @@ deskflow-helpdesk/
 └── README.md
 ```
 
+## Presentation backup: start an existing local copy
+
+**macOS Terminal / Linux Bash** — if the project is already installed in your home directory as `deskflow-presentation`, copy and paste:
+
+```bash
+cd "$HOME/deskflow-presentation" && npm start
+```
+
+Then open the **Local** URL printed by Vite, usually `http://localhost:5173/`. Do not paste this command from `~` without the `cd` part.
+
+For an existing clone in **another directory**, open a Terminal **in its repository root** (where the root `package.json` is) and run `npm start`.
+
+**If the combined launcher exits before Vite starts:** open **two terminal windows** in the same project and run these separate blocks:
+
+Backend Terminal:
+
+```bash
+cd "$HOME/deskflow-presentation/backend"
+npm start
+```
+
+Frontend Terminal:
+
+```bash
+cd "$HOME/deskflow-presentation/frontend"
+npm run dev
+```
+
+Wait for `VITE ready`, then open the displayed Local URL. Do **not** run `npm run seed` to restart the app; it resets database records. This backup assumes the dependencies, `.env`, and database were configured during first-time setup.
+
 ## Quick launch — Terminal / Bash
 
 **Already downloaded and configured?** Open Terminal in the existing `deskflow-helpdesk` project folder (the folder containing `package.json`), then **copy and paste this entire block**:
