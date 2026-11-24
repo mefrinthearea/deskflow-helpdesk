@@ -87,72 +87,41 @@ deskflow-helpdesk/
 
 ## Getting started
 
-### Requirements
+### Fastest classroom demo — copy and paste once
 
-- Node.js and npm (versions compatible with both `package-lock.json` files ; Node.js 22 (tested with v22.16) and npm)
-- Git
-- Two terminal windows
+**Works in macOS Terminal, Linux Terminal, and Windows PowerShell**, provided **Git** and **Node.js 22+ (with npm)** are installed. Internet access is needed to clone the repository and install dependencies.
 
-### 1. Clone the integrated application
+Open a terminal in a folder where you want a **new** copy of DeskFlow. Copy and paste this **entire block in order**:
 
-```bash
-git clone https://github.com/mefrinthearea/deskflow-helpdesk.git
-cd deskflow-helpdesk
-```
-
-> The integrated application is available on `main`.
-
-### 2. Configure and seed the backend
-
-```bash
-cd backend
-npm ci
-cp .env.example .env
-```
-
-Open `backend/.env` and assign a **long, random** `SESSION_SECRET` value. On macOS/Linux, you can generate one with `openssl rand -hex 32`. Do not commit `.env`.
-On Windows (or anywhere with Node): `node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"`
-
-Initialize the database **once for a fresh setup**:
-
-```bash
-npm run seed
+```text
+git clone https://github.com/mefrinthearea/deskflow-helpdesk.git deskflow-presentation
+cd deskflow-presentation
+npm --prefix backend ci
+npm --prefix frontend ci
+node -e "const fs=require('fs');const p='backend/.env';if(!fs.existsSync(p))fs.writeFileSync(p,'PORT=3000\nSESSION_SECRET='+require('crypto').randomBytes(32).toString('hex')+'\n')"
+npm --prefix backend run seed
 npm start
 ```
 
-The API starts at **http://localhost:3000**.
+**What happens:** The repository is copied to a new `deskflow-presentation` folder, both sets of dependencies are installed, a local `.env` with a random session secret is created, a **new** SQLite demo database is populated with example accounts and tickets, and Express + Vite start together.
 
-> **Warning:** `npm run seed` executes `schema.sql`, which drops and recreates the tables. Running it again will erase existing local tickets and comments.
+Open the **Local** URL printed by Vite (usually `http://localhost:5173/`; it may choose a different frontend port). The API uses port `3000`. Press **Ctrl+C** to stop. If port 3000 is already occupied, stop the other server first.
 
-### 3. Start the frontend
+> **Safety:** Run the full block **only for a brand-new clone**. `npm --prefix backend run seed` **deletes and recreates database tables**; never run it on a copy with tickets you want to keep. If the folder `deskflow-presentation` already exists, choose another folder name for a new clone or use the repeat-start instructions below. The `.env` file stays local and is not committed.
 
-Open another terminal at the repository root:
+### Next time — existing installation
 
-```bash
-cd frontend
-npm ci
-npm run dev
-```
+Open a terminal **inside the previously created `deskflow-presentation` folder**, and run:
 
-Open the local URL printed by Vite (typically **http://localhost:5173**, or the next available port).
-
-To verify a production build:
-
-```bash
-npm run build
-```
-
-### One-command start (Windows, macOS, Linux)
-
-After completing the one-time installation and backend configuration below, open a terminal in the **repository root** and run:
-
-```bash
+```text
 npm start
 ```
 
-This starts **Express and Vite together** using Node.js on Windows, macOS, or Linux. Open the local URL Vite prints (for example `http://localhost:5173/`). Press **Ctrl+C** to stop the processes.
+No repeat cloning, installation, or seeding is needed. Teammates who already have another working clone can run `npm start` from **that clone's root** after pulling this README/startup update and installing dependencies.
 
-> Run this from the repository root, not `frontend/` or `backend/`. It does **not** clone the repository, reinstall dependencies, or seed/reset your database. If dependencies are missing, first run `npm ci` separately in both `backend/` and `frontend/`. On a new computer, configure `backend/.env` and run `npm run seed` from `backend/` **only once** to initialize a fresh database. Node.js must be installed.
+### Manual setup (optional)
+
+If you prefer two separate terminals, start `npm start` in `backend/` and `npm run dev` in `frontend/` after completing installation and one-time configuration. Do not run `seed` on a populated database.
 
 ### Seeded demo accounts
 
