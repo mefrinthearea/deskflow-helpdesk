@@ -142,6 +142,18 @@ To verify a production build:
 npm run build
 ```
 
+### One-command start (Windows, macOS, Linux)
+
+After completing the one-time installation and backend configuration below, open a terminal in the **repository root** and run:
+
+```bash
+npm start
+```
+
+This starts **Express and Vite together** using Node.js on Windows, macOS, or Linux. Open the local URL Vite prints (for example `http://localhost:5173/`). Press **Ctrl+C** to stop the processes.
+
+> Run this from the repository root, not `frontend/` or `backend/`. It does **not** clone the repository, reinstall dependencies, or seed/reset your database. If dependencies are missing, first run `npm ci` separately in both `backend/` and `frontend/`. On a new computer, configure `backend/.env` and run `npm run seed` from `backend/` **only once** to initialize a fresh database. Node.js must be installed.
+
 ### Seeded demo accounts
 
 These accounts are created by the base seed script for **local demonstrations only**.
