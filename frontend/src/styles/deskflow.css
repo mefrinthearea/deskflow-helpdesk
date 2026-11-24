@@ -1731,3 +1731,23 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 .comment-actions { display:flex; gap:12px; margin-top:8px; }
 .comment-actions button { border:0; background:transparent; color:var(--accent); font-size:12px; padding:2px; }
 @media(max-width:680px) { .auth-panel{padding:22px;} .profile-block>span:last-child{display:none;} .signout-link{font-size:11px;} }
+
+
+/* Dropdown contrast: readable options in both themes. */
+.theme-light select {
+  color-scheme: light;
+}
+
+.theme-dark select {
+  color-scheme: dark;
+}
+
+.theme-light select option {
+  background-color: #ffffff;
+  color: #153b48;
+}
+
+.theme-dark select option {
+  background-color: #2c344f;
+  color: #ffffff;
+}
