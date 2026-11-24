@@ -26,8 +26,6 @@ export default function Shell() {
           </NavLink>
           <nav className="main-navigation" aria-label="Main navigation">
             <NavLink to="/" end className={navClassName}>TICKETS</NavLink>
-            <NavLink to="/my-requests" className={navClassName}>MY REQUESTS</NavLink>
-            <NavLink to="/activity" className={navClassName}>ACTIVITY</NavLink>
           </nav>
           <div className="topbar-right">
             <button type="button" className="theme-toggle" onClick={toggleTheme}

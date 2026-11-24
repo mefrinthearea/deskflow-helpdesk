@@ -99,7 +99,7 @@ export default function TicketDetail() {
             <label className="sr-only" htmlFor="ticket-reply">Reply message</label>
             <textarea id="ticket-reply" value={reply} onChange={(event) => setReply(event.target.value)}
               placeholder={`Write a reply to ${ticket.customerShort}...`} required rows={3} maxLength={1000}/>
-            <div className="composer-bottom"><span>Public reply</span>
+            <div className="composer-bottom"><span>Reply to this ticket</span>
               <button type="submit" className="primary-button" disabled={busy || !reply.trim()}><Send size={15}/> Send reply</button>
             </div>
           </form>
@@ -115,7 +115,6 @@ export default function TicketDetail() {
             ) : <Badge value={ticket.status}/>}</dd></div>
             <div><dt>Priority</dt><dd><Badge value={ticket.priority} kind="priority"/></dd></div>
             <div><dt>Category</dt><dd>{ticket.category}</dd></div>
-            <div><dt>Assigned to</dt><dd>{ticket.assignee}</dd></div>
             <div><dt>Created</dt><dd>{formatDate(ticket.createdAt)}</dd></div>
             <div><dt>Updated</dt><dd>{timeAgo(ticket.updatedAt)} ago</dd></div>
           </dl>

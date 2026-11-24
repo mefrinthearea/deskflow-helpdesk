@@ -1,5 +1,5 @@
-/** Display helpers shared by the dashboard, activity list, and ticket details. */
-export const PRIORITY_RANK = { Urgent: 0, High: 1, Medium: 2, Low: 3 };
+/** Display helpers shared by the dashboard and ticket details. */
+export const PRIORITY_RANK = { High: 1, Medium: 2, Low: 3 };
 
 export function timeAgo(date) {
   const minutes = Math.max(0, Math.floor((Date.now() - new Date(date).getTime()) / 60000));

@@ -77,11 +77,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
   --priority-high:#ffe5da;
   --priority-medium:#e7f0f4;
   --priority-low:#ddf7ef;
-  --priority-urgent:#f8cdd1
-}
 
-.theme-dark {
-  --scene:#171b32;
   --rim:#2f3154;
   --workspace:#20243a;
   --header:#2a304d;
@@ -108,11 +104,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
   --priority-high:#6b415e;
   --priority-medium:#315065;
   --priority-low:#365253;
-  --priority-urgent:#7a3c5a
-}
 
-.deskflow-scene {
-  min-height:100vh;
   padding:24px 28px 32px;
   background:var(--scene);
   color:var(--text);
@@ -627,10 +619,6 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 
 .pill-priority-low {
   background:var(--priority-low)
-}
-
-.pill-priority-urgent {
-  background:var(--priority-urgent)
 }
 
 .ticket-preview {

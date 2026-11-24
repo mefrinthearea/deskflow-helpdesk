@@ -27,7 +27,6 @@ export function fromApiTicket(ticket) {
     status: ({ open: 'Open', in_progress: 'In progress', resolved: 'Resolved', closed: 'Closed' })[ticket.status] || ticket.status,
     customer: name,
     customerShort: name.split(' ').map((x, i) => i === 0 ? x : `${x[0]}.`).join(' '),
-    assignee: ticket.status === 'open' ? 'Unassigned' : 'Support Team',
     createdAt: parseSqlDate(ticket.created_at),
     updatedAt: parseSqlDate(ticket.updated_at || ticket.created_at),
     comments: (ticket.comments || []).map(fromApiComment),

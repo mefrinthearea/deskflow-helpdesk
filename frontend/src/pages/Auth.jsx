@@ -48,7 +48,6 @@ export default function Auth() {
             <button className="auth-switch" type="button" onClick={() => {setMode(mode === 'login' ? 'register' : 'login');setMessage('');}}>
               {mode === 'login' ? 'Need an account? Register' : 'Already registered? Sign in'}
             </button>
-            <p className="auth-demo">Demo customer: customer@test.com · Demo agent: agent@test.com<br/>Demo password: Test1234! (local development only)</p>
           </section>
         </main>
       </div></div>
