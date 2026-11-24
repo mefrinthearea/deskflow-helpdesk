@@ -122,15 +122,25 @@ Open the **Local** URL printed by Vite (usually `http://localhost:5173/`; it may
 
 > **Safety:** Run the full block **only for a brand-new clone**. `npm --prefix backend run seed` **deletes and recreates database tables**; never run it on a copy with tickets you want to keep. If the folder `deskflow-presentation` already exists, choose another folder name for a new clone or use the repeat-start instructions below. The `.env` file stays local and is not committed.
 
-### Next time — existing installation
+### Ready-to-run Terminal / Bash block — open the local servers
 
-Open a terminal **inside the previously created `deskflow-presentation` folder**, and run:
+**If DeskFlow is already downloaded and configured**, open Terminal or Git Bash **in the project folder or any subfolder**, then copy and paste:
 
-```text
+```bash
+cd "$(git rev-parse --show-toplevel)" && npm start
+```
+
+This automatically moves to the repository root, then starts both Express and Vite. Open the **Local** URL printed by Vite. Press **Ctrl+C** to stop. **No cloning, installation, or database reset.**
+
+If your terminal is *outside* the project, open it in the project folder first, or `cd` to the folder where you downloaded the repository. On Windows **PowerShell** (not Git Bash), use:
+
+```powershell
+Set-Location (git rev-parse --show-toplevel)
 npm start
 ```
 
-No repeat cloning, installation, or seeding is needed. Teammates who already have another working clone can run `npm start` from **that clone's root** after pulling this README/startup update and installing dependencies.
+> The command assumes the repository has the root `package.json` startup script and that the initial setup (dependencies, `backend/.env`, fresh database) has already been completed. Teammates with older clones should get the latest commits before using it, after saving any uncommitted work.
+
 
 ### Manual setup (optional)
 
