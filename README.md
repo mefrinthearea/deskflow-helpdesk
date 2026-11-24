@@ -85,6 +85,19 @@ deskflow-helpdesk/
 └── README.md
 ```
 
+## Quick launch — Terminal / Bash
+
+**Already downloaded and configured?** Open Terminal in the existing `deskflow-helpdesk` project folder (the folder containing `package.json`), then **copy and paste this entire block**:
+
+```bash
+# Start both Express (backend) and Vite (frontend).
+npm start
+```
+
+The application will show a **Local** URL such as `http://localhost:5173/` (the port may differ). Open that URL in a browser. Press **Ctrl+C** to stop the servers.
+
+**Starting from GitHub on another computer for the first time?** Use the complete one-block setup under [Getting started → Fastest classroom demo](#fastest-classroom-demo--copy-and-paste-once) below. It clones the project, installs dependencies, initializes a **new** sample database, and starts both servers. That first-time block requires Git, Node.js and an internet connection; it must **not** be run over an existing database.
+
 ## Getting started
 
 ### Fastest classroom demo — copy and paste once
