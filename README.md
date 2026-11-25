@@ -18,6 +18,29 @@ DeskFlow is a role-based support ticket application developed for the **Web Prog
 
 The interface is built with React, the REST API runs on Express, and the application stores users, tickets, and comments in a relational SQLite database.
 
+## Application screenshots
+
+Screenshots of the running application using the local demo database.
+
+### Ticket workspace
+
+| Light mode | Dark mode |
+| --- | --- |
+| ![Light workspace](docs/screenshots/deskflow-workspace-light.png) | ![Dark workspace](docs/screenshots/deskflow-workspace-dark.png) |
+
+### Ticket details
+
+| Light mode | Dark mode |
+| --- | --- |
+| ![Light ticket](docs/screenshots/deskflow-ticket-detail-light.png) | ![Dark ticket](docs/screenshots/deskflow-ticket-detail-dark.png) |
+
+### Authentication
+
+| Light mode | Dark mode |
+| --- | --- |
+| ![Light login](docs/screenshots/deskflow-login-light.png) | ![Dark login](docs/screenshots/deskflow-login-dark.png) |
+| ![Light registration](docs/screenshots/deskflow-register-light.png) | ![Dark registration](docs/screenshots/deskflow-register-dark.png) |
+
 ## Features
 
 | Customers | Support agents |
